@@ -13,7 +13,8 @@ Routes:
 
 #[tokio::main]
 async fn main() {
-    let reply = reqwest::get("http://localhost:8111/indicators").await.unwrap();
-    let json: Indicator = serde_json::from_str(&reply.text().await.unwrap()).unwrap();
+    let indicators = reqwest::get("http://localhost:8111/indicators").await.unwrap();
+	let state = reqwest::get("http://localhost:8111/state").await.unwrap();
+    let json: Indicator = serde_json::from_str(&indicators.text().await.unwrap()).unwrap();
 	println!("{:#?}", json);
 }
